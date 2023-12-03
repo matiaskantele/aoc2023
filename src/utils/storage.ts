@@ -1,6 +1,7 @@
 export const usePersistedValue = (
   elementId: string,
-  defaultValue: string = ""
+  defaultValue: string = "",
+  onChange: any
 ) => {
   const inputElement = document.getElementById(elementId) as HTMLInputElement;
 
@@ -11,6 +12,9 @@ export const usePersistedValue = (
 
     inputElement.addEventListener("input", () => {
       localStorage.setItem(`${elementId}Value`, inputElement.value);
+      if (onChange) {
+        onChange();
+      }
     });
   }
 };

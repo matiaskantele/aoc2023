@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import SelectPuzzle from "../components/SelectPuzzle.astro";
+import PuzzleInput from "../components/PuzzleInput.astro";
+import Button from "../components/Button.astro";
 ---
 
 <Layout title="AoC2023">
@@ -12,48 +15,42 @@ import Layout from "../layouts/Layout.astro";
         >2023</span
       >
     </h1>
-    <select
-      id="puzzle"
-      class="w-1/4 mx-auto px-2 h-10 bg-gray-800 placeholder-gray-200 border rounded-lg border-gray-50"
-    >
-      <option value="d1p1">Day 1: Trebuchet?!</option>
-      <option value="d1p2">Day 1: Trebuchet?! - Part 2</option>
-      <option value="d2p1">Day 2: Part 1</option>
-    </select>
-    <textarea
-      id="input"
-      placeholder="Paste your input..."
-      value=""
-      class="block w-1/2 h-3/5 mx-auto p-4 bg-gray-800 placeholder-gray-200 border rounded-lg border-gray-50"
-    ></textarea>
-    <button
-      id="submit"
-      class="w-1/4 h-10 mx-auto border rounded-lg border-gray-50">Submit</button
-    >
+    <SelectPuzzle />
+    <PuzzleInput />
+    <Button text="Submit" />
+    <div id="answer" class="hidden">
+      <p>The answer is:</p><span
+        id="answerText"
+        class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent"
+      ></span>
+    </div>
   </main>
 </Layout>
 
 <script>
   import { solve } from "../solutions/solver";
   import { usePersistedValue } from "../utils/storage";
+  import { hide, show } from "../utils/ui";
 
-  const handleButtonClick = () => {
-    const puzzleSelect = document.getElementById(
-      "puzzle"
-    ) as HTMLSelectElement | null;
-    const puzzleInput = document.getElementById("input") as HTMLInputElement;
+  const puzzleSelect = document.getElementById("puzzle") as HTMLSelectElement;
+  const puzzleInput = document.getElementById("input") as HTMLInputElement;
+  const submitButton = document.getElementById("submit") as HTMLButtonElement;
+  const answerDiv = document.getElementById("answer") as HTMLDivElement;
+  const answerText = document.getElementById("answerText") as HTMLSpanElement;
 
-    if (puzzleSelect && puzzleInput) {
-      const puzzle = puzzleSelect.options[puzzleSelect.selectedIndex].value;
+  usePersistedValue("input", "", () => hide(answerDiv));
+  usePersistedValue("puzzle", "d1p1", () => hide(answerDiv));
+
+  const handleClick = () => {
+    if (puzzleSelect.value && puzzleInput.value) {
+      const puzzle = puzzleSelect.value;
       const input = puzzleInput.value.split("\n");
       const answer = solve(puzzle, input);
 
-      console.log(`The solution is ${answer}`);
+      answerText.textContent = answer;
+      show(answerDiv);
     }
   };
 
-  usePersistedValue("puzzle", "d1p1");
-
-  const submitButton = document.getElementById("submit");
-  submitButton?.addEventListener("click", handleButtonClick);
+  submitButton?.addEventListener("click", handleClick);
 </script>

@@ -9,10 +9,10 @@ const solvers: Solvers = {
   d1p2: day1part2,
 };
 
-export const solve = (puzzle: string, input: string[]) => {
+export const solve = (puzzle: string, input: string[]): string => {
   const solver = solvers[puzzle];
   if (!solver) {
-    return "still eluding the author :/";
+    return "";
   }
-  return solver(input);
+  return solver(input).toString();
 };
