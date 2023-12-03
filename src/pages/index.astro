@@ -13,7 +13,7 @@ import Layout from "../layouts/Layout.astro";
       >
     </h1>
     <select
-      id="puzzles"
+      id="puzzle"
       class="w-1/4 mx-auto px-2 h-10 bg-gray-800 placeholder-gray-200 border rounded-lg border-gray-50"
     >
       <option value="d1p1">Day 1: Trebuchet?!</option>
@@ -35,17 +35,25 @@ import Layout from "../layouts/Layout.astro";
 
 <script>
   import { solve } from "../solutions/solver";
-  const button = document.getElementById("submit");
+  import { usePersistedValue } from "../utils/storage";
 
-  button?.addEventListener("click", () => {
-    const puzzles: any | null = document.getElementById("puzzles");
-    const puzzle = puzzles.options[puzzles.selectedIndex].value;
-    const inputText = document.getElementById(
-      "input"
-    ) as HTMLInputElement | null;
-    const input = inputText?.value.split("\n") ?? [];
-    const answer = solve(puzzle, input);
+  const handleButtonClick = () => {
+    const puzzleSelect = document.getElementById(
+      "puzzle"
+    ) as HTMLSelectElement | null;
+    const puzzleInput = document.getElementById("input") as HTMLInputElement;
 
-    console.log(`The solution is ${answer}`);
-  });
+    if (puzzleSelect && puzzleInput) {
+      const puzzle = puzzleSelect.options[puzzleSelect.selectedIndex].value;
+      const input = puzzleInput.value.split("\n");
+      const answer = solve(puzzle, input);
+
+      console.log(`The solution is ${answer}`);
+    }
+  };
+
+  usePersistedValue("puzzle", "d1p1");
+
+  const submitButton = document.getElementById("submit");
+  submitButton?.addEventListener("click", handleButtonClick);
 </script>
