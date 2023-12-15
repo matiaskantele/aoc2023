@@ -1,7 +1,7 @@
 export const show = (element: HTMLElement) => {
-  element.style.display = "block";
+  element.style.opacity = "1";
 };
 
 export const hide = (element: HTMLElement) => {
-  element.style.display = "none";
+  element.style.opacity = "0";
 };

@@ -1,30 +1,52 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import SelectPuzzle from "../components/SelectPuzzle.astro";
-import PuzzleInput from "../components/PuzzleInput.astro";
 import Button from "../components/Button.astro";
 ---
 
 <Layout title="AoC2023">
-  <main
-    class="flex flex-col gap-8 m-auto p-4 w-800 max-w-[calc(100%-2rem)] h-screen text-white text.xl leading-relaxed"
+  <div
+    class="grid grid-cols-5 grid-rows-5 gap-0 w-full h-full max-w-7xl max-h-[70rem]"
   >
-    <h1 class="text-7xl font-bold leading-none text-center mt-20">
+    <h1
+      class="col-start-2 col-end-3 row-start-2 row-end-3 text-7xl font-bold leading-none text-right m-auto"
+    >
       Advent of Code <span
-        class="bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent"
+        class="bg-gradient-to-r from-violet-500 to-fuchsia-500 text-8xl bg-clip-text text-transparent"
         >2023</span
       >
     </h1>
-    <SelectPuzzle />
-    <PuzzleInput />
-    <Button text="Submit" />
-    <div id="answer" class="hidden">
-      <p>The answer is:</p><span
-        id="answerText"
-        class="text-4xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent"
-      ></span>
+    <div
+      class="col-start-4 col-end-5 row-start-2 row-end-4 flex flex-col space-between gap-12"
+    >
+      <select
+        id="puzzle"
+        class="block w-full mt-4 px-2 h-20 bg-[#13151a] placeholder-gray-200 border rounded-lg border-gray-50"
+      >
+        <option value="d1p1">Day 1: Trebuchet?!</option>
+        <option value="d1p2">Day 1: Trebuchet?! - Part 2</option>
+        <option value="d2p1">Day 2: Part 1</option>
+      </select>
+      <textarea
+        id="input"
+        placeholder="Paste input..."
+        class="w-full h-full p-4 bg-[#13151a] placeholder-gray-500 border rounded-lg border-gray-50"
+      ></textarea>
     </div>
-  </main>
+    <div
+      id="answer"
+      class="col-start-3 col-end-4 row-start-4 row-end-5 flex items-center justify-end h-20 text-5xl font-bold leading-none opacity-0 text-right mt-7 mr-4 gap-4"
+    >
+      <p
+        id="answerText"
+        class="text-7xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent"
+      >
+      </p>
+      <p>&lt</p>
+    </div>
+    <div class="col-start-4 col-end-5 row-start-4 row-end-5 mt-12">
+      <Button text="Calculate" />
+    </div>
+  </div>
 </Layout>
 
 <script>
@@ -36,7 +58,9 @@ import Button from "../components/Button.astro";
   const puzzleInput = document.getElementById("input") as HTMLInputElement;
   const submitButton = document.getElementById("submit") as HTMLButtonElement;
   const answerDiv = document.getElementById("answer") as HTMLDivElement;
-  const answerText = document.getElementById("answerText") as HTMLSpanElement;
+  const answerText = document.getElementById(
+    "answerText"
+  ) as HTMLParagraphElement;
 
   usePersistedValue("input", "", () => hide(answerDiv));
   usePersistedValue("puzzle", "d1p1", () => hide(answerDiv));
