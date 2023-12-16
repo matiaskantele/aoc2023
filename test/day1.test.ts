@@ -1,9 +1,9 @@
 import { expect, test } from "bun:test";
-import { day1part1, day1part2 } from "../src/solutions/day1";
+import { d1p1, d1p2 } from "../src/solutions/day1";
 
 test("Solver: Day 1 - Part 1", () => {
   const input: string[] = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
-  const answer = day1part1(input);
+  const answer = d1p1(input);
   expect(answer).toBe(142);
 });
 
@@ -17,6 +17,6 @@ test("Solver: Day 1 - Part 2", () => {
     "zoneight234",
     "7pqrstsixteen",
   ];
-  const answer = day1part2(input);
+  const answer = d1p2(input);
   expect(answer).toBe(281);
 });

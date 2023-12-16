@@ -46,7 +46,7 @@ What is the sum of all of the calibration values?
 
 */
 
-export const day1part1 = (input: string[]) => {
+export const d1p1 = (input: string[]) => {
   let sum: number = 0;
   input.forEach((row) => {
     sum += getCalibrationValue(row);
@@ -79,7 +79,7 @@ Adding these together produces 281.
 What is the sum of all of the calibration values?
 */
 
-export const day1part2 = (input: string[]) => {
+export const d1p2 = (input: string[]) => {
   let sum: number = 0;
   input.forEach((row) => {
     const expandedRow = expandDigits(row);
