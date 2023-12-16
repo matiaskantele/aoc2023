@@ -61,10 +61,10 @@ export const d2p1 = (input: string[]) => {
   let sum: number = 0;
 
   input.forEach((row) => {
-    const [game, setReveals] = row.split(": ");
+    const [game, gameData] = row.split(": ");
     const id = Number(game.split(" ")[1]);
-    const subsets = setReveals.split("; ");
-    const maxReveals: Record<string, number> = {
+    const subsets = gameData.split("; ");
+    const maximums: Record<string, number> = {
       red: 0,
       green: 0,
       blue: 0,
@@ -76,13 +76,10 @@ export const d2p1 = (input: string[]) => {
       reveals.forEach((reveal) => {
         const [revealed, color] = reveal.split(" ");
         const amount = Number(revealed);
-        if (amount > maxReveals[color]) {
-          maxReveals[color] = Number(amount);
+        if (amount > maximums[color]) {
+          maximums[color] = Number(amount);
           if (amount > cubes[color]) {
             impossible = true;
-            console.log(
-              `Game ${id} is impossible since there's a maximum of ${cubes[color]} ${color} cubes but ${amount} was revealed.`
-            );
           }
         }
       });
@@ -132,7 +129,31 @@ What is the sum of the power of these sets?
 
 */
 
-export const d1p2 = (input: string[]) => {
-  let sum = 0;
+export const d2p2 = (input: string[]) => {
+  let sum: number = 0;
+
+  input.forEach((row) => {
+    const gameData = row.split(": ")[1];
+    const subsets = gameData.split("; ");
+    const maximums: Record<string, number> = {
+      red: 0,
+      green: 0,
+      blue: 0,
+    };
+
+    subsets.forEach((set) => {
+      const reveals = set.split(", ");
+      reveals.forEach((reveal) => {
+        const [revealed, color] = reveal.split(" ");
+        const amount = Number(revealed);
+        if (amount > maximums[color]) {
+          maximums[color] = Number(amount);
+        }
+      });
+    });
+
+    sum += Object.values(maximums).reduce((acc = 1, amount) => acc * amount);
+  });
+
   return sum;
 };
