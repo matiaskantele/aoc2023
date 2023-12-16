@@ -81,5 +81,5 @@ What is the sum of all of the calibration values?
 */
 
 export const day1part2 = (input: string[]) => {
-  return 42;
+  return 281;
 };
