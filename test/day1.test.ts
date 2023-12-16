@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { day1part1, day1part2 } from "./day1";
+import { day1part1, day1part2 } from "../src/solutions/day1";
 
 test("Solver: Day 1 - Part 1", () => {
   const input: string[] = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];

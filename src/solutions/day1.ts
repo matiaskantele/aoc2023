@@ -1,3 +1,5 @@
+import { expandDigits, getCalibrationValue } from "../utils/strings";
+
 /**
 --- Day 1: Trebuchet?! ---
 Something is wrong with global snow production, and you've been selected
@@ -47,10 +49,7 @@ What is the sum of all of the calibration values?
 export const day1part1 = (input: string[]) => {
   let sum: number = 0;
   input.forEach((row) => {
-    const numbers = row.replace(/\D/g, ""); // remove non-digits
-    const firstNumber = numbers[0];
-    const lastNumber = numbers[numbers.length - 1];
-    sum += Number(`${firstNumber}${lastNumber}`);
+    sum += getCalibrationValue(row);
   });
   return sum;
 };
@@ -81,5 +80,10 @@ What is the sum of all of the calibration values?
 */
 
 export const day1part2 = (input: string[]) => {
-  return 281;
+  let sum: number = 0;
+  input.forEach((row) => {
+    const expandedRow = expandDigits(row);
+    sum += getCalibrationValue(expandedRow);
+  });
+  return sum;
 };
