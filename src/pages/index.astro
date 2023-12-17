@@ -9,17 +9,19 @@ import Button from "../components/Button.astro";
       Advent of Code <span class="gradient text-8xl">2023</span>
     </h1>
     <div class="puzzle-container">
-      <select id="puzzle" class="puzzle-select">
+      <select id="puzzle" class="puzzle-select" aria-label="Select Puzzle">
         <option value="d1p1">Day 1: Trebuchet?!</option>
         <option value="d1p2">Day 1: Trebuchet?! - Part 2</option>
         <option value="d2p1">Day 2: Cube Conundrum</option>
         <option value="d2p2">Day 2: Cube Conundrum - Part 2</option>
+        <option value="d3p1">Day 3: Gear Ratios</option>
+        <option value="d3p2">Day 3: Gear Ratios - Part 2</option>
       </select>
       <textarea id="input" class="puzzle-input" placeholder="Paste input..."
       ></textarea>
     </div>
     <div id="answer" class="answer-container">
-      <p id="answerText" class="gradient text-7xl"></p>
+      <p id="answerText" class="gradient text-7xl whitespace-nowrap"></p>
       <p>&lt</p>
     </div>
     <div class="button-container">
