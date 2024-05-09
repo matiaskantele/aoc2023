@@ -50,15 +50,44 @@ What is the sum of all of the part numbers in the engine schematic?
 
 */
 
+type symbolLocation = {
+  x: number;
+  y: number;
+};
+
+export const getSymbolLocations = (input: string[]) => {
+  const symbolIndexes: symbolLocation[] = [];
+  const notSymbols = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+
+  input.forEach((row, index) => {
+    row.split("").forEach((char, rowIndex) => {
+      if (!notSymbols.includes(char)) {
+        console.log("FOUND " + char);
+        symbolIndexes.push({ x: Number(rowIndex), y: Number(index) });
+      }
+    });
+  });
+
+  return symbolIndexes;
+};
+
+const getAdjacentNumbers = (symbols: symbolLocation[]) => {
+  return ""
+}
+
 export const d3p1 = (input: string[]) => {
   let sum: number = 0;
+
+  const symbolLocations = getSymbolLocations(input);
+
+  console.log(symbolLocations);
 
   // TODO: Use da brain
 
   return sum;
 };
 
-/** 
+/**
 
 --- Part Two ---
 
